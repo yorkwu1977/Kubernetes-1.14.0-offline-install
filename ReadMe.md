@@ -7,7 +7,14 @@
 2. 预安装Kubernetes
 3. 安装Kubernetes Control Plane
 
-## 说明
+## 重要说明
+
+#### 所有资源文件
+
+把所有资源文件都放在同一目录下。
+
+[脚本文件](https://github.com/yorkwu1977/Kubernetes-1.14.0-offline-install)
+[离线安装包](https://pan.baidu.com/s/1ki4-FI4yRkZPJkvv8YYCEg ) 提取码: brd0
 
 #### 需要在线安装的资源
 
@@ -109,17 +116,42 @@ $ docker run --restart=always -d -p 80:5000 --name repo harbor.io:1180/system/k8
 ## 3. 安装Kubernetes Control Plane
 
 a, 设置3个Master节点之间的免密码登录。
-
 b, 在Master node01 执行:
 
 ```
 $ basd -c ./kubeha-gen.sh
 ```
 
-## 5. 使用 Ansible 剧本执行
+## 附录：使用 Ansible 剧本执行
 
-需要单独准备一台服务器。复制所有安装资源和ansible-playbook文件夹到Ansible服务器的/home目录。
-  - ansible-hosts: ansible的iventory文件的参考格式，给所有服务器分组。
-  - k8s-repo-setup.yaml: 在K8s Rregistry上执行的脚本。
-  - k8s-presintall.yaml: 在K8s Master和K8s Worker上执行的脚本。 
-  - k8s-cluster-hosts.yaml: 追加hosts配置到所有服务器上。
+#### 准备工作
+
+a, 单独准备一台服务器，安装Ansible。
+b, 复制所有安装资源文件和ansible-playbook文件夹到Ansible服务器的/home目录。
+
+#### 文件说明
+- ansible-hosts: ansible的iventory文件的参考格式，为所有服务器分组。
+- k8s-preinstall.yaml: 在K8s Master和K8s Worker上执行的脚本。 
+- k8s-repo-setup.yaml: 在K8s Rregistry上执行的脚本。
+- k8s-cluster-hosts.yaml: 追加hosts配置到所有服务器上。
+
+#### 执行剧本
+
+执行命令：
+```
+$ ansible-playbook k8s-reinstall.yaml
+$ ansible-playbook k8s-repo-setup.yaml:
+$ ansible-playbook k8s-cluster-hosts.yaml
+```
+剧本执行后就完成了上面的2个安装步骤：
+1. 准备安装资源
+2. 预安装Kubernetes
+
+## 手工安装Kubernetes Control Plane
+
+a, 设置3个Master节点之间的免密码登录。
+b, 在Master node01 执行:
+
+```
+$ basd -c ./kubeha-gen.sh
+```
