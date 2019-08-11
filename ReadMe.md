@@ -152,6 +152,6 @@ $ ansible-playbook k8s-cluster-hosts.yaml
 a, 设置3个Master节点之间的免密码登录。
 b, 在Master node01 执行:
 
-```
+```shell
 $ basd -c ./kubeha-gen.sh
 ```
